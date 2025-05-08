@@ -1,0 +1,18 @@
+<h1 style="text-align: center">New Author</h1>
+<%= form_with model: @author, url: "/author/add", data: {turbo: false}, method: :post, local: true do |f| %>
+    <p>
+        <%= f.label "First Name"%>
+        <%= f.text_field :first_name%>
+    </p>
+    <p>
+        <%= f.label "Last Name"%>
+        <%= f.text_field :last_name%>
+    </p>
+    <p>
+        <%= f.label "Date of Birth" %>
+        <%= f.text_field :date_of_birth%>
+    </p>
+    <p>
+        <%= f.submit "Add Author"%>
+    </p>
+<%end%>

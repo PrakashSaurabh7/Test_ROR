@@ -1,0 +1,28 @@
+<h1 style="text-align: center">Edit Book Details</h1>
+
+<%= form_with model: @book, url: "/book/update/#{@book.id}", data: { turbo: false }, method: :patch, local: true do |f| %>
+  <p>
+    <%= f.label :book_title, "Book Title" %><br>
+    <%= f.text_field :book_title %>
+  </p>
+
+  <div class="dropdown">
+    <%= f.label :author_ids, "Authors" %>
+    <ul class="dropdown-menu" style="max-height: 200px; overflow-y: auto;">
+    <% @authors.each do |author| %>
+        <li class="dropdown-item">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="book[author_ids][]" value="<%= author.id %>" id="author_<%= author.id %>">
+            <label class="form-check-label" for="author_<%= author.id %>">
+                <%= author.first_name %> <%= author.last_name %>
+            </label>
+        </div>
+        </li>
+    <% end %>
+    </ul>
+  </div>
+
+  <p>
+    <%= f.submit "Update Book" %>
+  </p>
+<% end %>

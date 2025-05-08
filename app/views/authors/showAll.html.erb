@@ -1,0 +1,121 @@
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 2rem;
+    color: #2c3e50;
+  }
+
+  table {
+    width: 90%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid #eaeaea;
+    vertical-align: top;
+  }
+
+  th {
+    background-color: #f0f2f5;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+
+  table table {
+    width: 100%;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  table table td {
+    padding: 6px 10px;
+    font-size: 13px;
+    color: #555;
+    border: none;
+    font-weight: bold; /* Book titles bold */
+  }
+
+  td a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+    font-weight: 500;
+  }
+
+  td a:hover {
+    text-decoration: underline;
+  }
+
+  form button {
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  form button:hover {
+    background-color: #c0392b;
+  }
+</style>
+
+<h1>All Authors</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Author Names</th>
+      <th>Author DOB</th>
+      <th>Author Books</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @authors.any? %>
+      <% @authors.each do |author| %>
+        <tr>
+          <td><%= author.first_name + " " + author.last_name %></td>
+          <td><%= author.date_of_birth %></td>
+          <td>
+            <table>
+              <tbody>
+                <% author.books.each do |book| %>
+                  <tr>
+                    <td><%= book.book_title %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </td>
+          <td>
+            <%= link_to "Edit", "/author/edit/#{author.id}" %>
+            <%= button_to "Delete", "/author/delete/#{author.id}", method: :delete, data: { turbo_confirm: "Are you sure" }, form: { style: "display:inline;" } %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
