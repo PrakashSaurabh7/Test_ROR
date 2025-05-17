@@ -7,18 +7,23 @@
   </p>
 
   <div class="dropdown">
-    <%= f.label :author_ids, "Authors" %>
-    <ul class="dropdown-menu" style="max-height: 200px; overflow-y: auto;">
-    <% @authors.each do |author| %>
-        <li class="dropdown-item">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="book[author_ids][]" value="<%= author.id %>" id="author_<%= author.id %>">
-            <label class="form-check-label" for="author_<%= author.id %>">
-                <%= author.first_name %> <%= author.last_name %>
-            </label>
-        </div>
+    <%= f.label :author_ids, "Select Authors" %><br>
+
+    <!-- Reduced width search bar -->
+    <input type="text" id="author-search" placeholder="Search authors..." style="margin-bottom: 10px; width: 12%; padding: 5px;">
+
+    <!-- Author List (initially hidden, shown on focus or input) -->
+    <ul id="author-list" style="display: none; max-height: 150px; overflow-y: auto; list-style: none; padding: 0; margin: 0; border: 1px solid #ccc; width: 12%;">
+      <%# Show all authors initially %>
+      <% @authors
+          .each do |author| %>
+        <li class="dropdown-item" style="padding: 5px;">
+          <label style="cursor: pointer;">
+            <input type="checkbox" name="book[author_ids][]" value="<%= author.id %>">
+            <%= author.first_name %> <%= author.last_name %>
+          </label>
         </li>
-    <% end %>
+      <% end %>
     </ul>
   </div>
 
